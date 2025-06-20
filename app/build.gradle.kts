@@ -48,6 +48,15 @@ android {
     }
 }
 
+configurations.all {
+    resolutionStrategy {
+        // Удаляем старую версию полностью
+        exclude(group = "com.intellij", module = "annotations")
+        // Форсируем новую версию
+        force("org.jetbrains:annotations:23.0.0")
+    }
+}
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -56,23 +65,17 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-    // Navigation
+    implementation(libs.androidx.material3) // Removed duplicate
     implementation(libs.androidx.navigation.compose)
-    // Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
-    // MPAndroidChart
-    implementation(libs.mpandroidchart)
-    // iText for PDF
+    // Vremya zakkamentirovat ili udalit
+    // implementation(libs.mpandroidchart)
     implementation(libs.itext7.core)
-    // Coroutines
     implementation(libs.kotlinx.coroutines.android)
-    // Serialization
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.androidx.foundation.android)
-    implementation(libs.androidx.material3.android)
+    implementation(libs.androidx.foundation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -80,4 +83,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    // Removed duplicate implementation("org.jetbrains:annotations:23.0.0") as it's handled by resolutionStrategy
 }
